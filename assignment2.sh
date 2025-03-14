@@ -4,22 +4,21 @@
 echo "Starting Assignment 2 Script..."
 
 # Function to configure the network interface
-# Function to configure the network interface
 configure_network() {
     echo "Checking network configuration..."
     
     # Check if the configuration already exists
-    if ! grep -q '192.168.16.21/24' /etc/netplan/*.yaml; then
+    if ! grep -q '192.168.16.21/24' /etc/netplan/10-lxc.yaml; then
         echo "Configuring network to 192.168.16.21/24"
         # Update netplan configuration file for the specific IP
-        # Fix missing subnet in the netplan YAML
-        sed -i 's/192.168.16.21/192.168.16.21\/24/' /etc/netplan/*.yaml
+        sed -i 's/192.168.16.*/192.168.16.21\/24/' /etc/netplan/10-lxc.yaml
         netplan apply
         echo "Network configured successfully."
     else
         echo "Network configuration already correct."
     fi
 }
+
 # Function to update /etc/hosts
 configure_hosts() {
     echo "Checking /etc/hosts for correct IP and hostname..."
